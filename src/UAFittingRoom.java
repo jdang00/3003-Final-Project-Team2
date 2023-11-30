@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class UAFittingRoom {
     //Creating our Socket,Host, and Port
-    private static final String host = "159.203.92.246";
+    private static final String host = "192.168.0.9";
     private static final int port = 8080; //Our Port
 
     private Socket cs;
