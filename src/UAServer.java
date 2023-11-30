@@ -39,31 +39,37 @@ public class UAServer {
 
   //This is the client handler and is set up to handle inputs 
 	public void client(Socket cs) {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-				PrintWriter pw = new PrintWriter(cs.getOutputStream(), true)) {
-			String inputLine;
-			while ((inputLine = br.readLine()) != null) {
-				logger.info("Received command from client " + cs.getInetAddress().getHostAddress() + ": " + inputLine);
-				String[] request = inputLine.split(" ");
-        String response;
-        //The requests variable is used to identify what type of request is being input we could use something like
-        //if(request[0] == "Enter Shop") for example we could have a response be
-        //response = "Client " cs.getInetAddress().getHostAddress() + " has entered the shop"
+		 try (
+	                BufferedReader br = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+	                PrintWriter pw = new PrintWriter(cs.getOutputStream(), true)
+	        ) {
+			 String inputLine;
+	            while ((inputLine = br.readLine()) != null) {
+	                logger.info("Received command from client " + cs.getInetAddress().getHostAddress() + ": " + inputLine);
 
-        //pw.print(response);
-        
-				pw.println(request[0]);
-				logger.info("Request Made From Client " + cs.getInetAddress().getHostAddress() + ": " + request[0]);
-			}
+	                String[] request = inputLine.split(" ");
+	                String response;
 
-			logger.info("Client " + cs.getInetAddress().getHostAddress() + " disconnected");
+	                switch (request[0]) {
+	                    case "IP":
+	                        response = "Your IP address is " + cs.getInetAddress().getHostAddress();
+	                        break;
+	                    default:
+	                        logger.warning("Invalid command " + request[0] + " from client " + cs.getInetAddress().getHostAddress());
+	                        continue;
+	                }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	                pw.println(response);
+	                logger.info("Sent response to client " + cs.getInetAddress().getHostAddress() + ": " + response);
+	            }
 
-	}
+	            logger.info("Client " + cs.getInetAddress().getHostAddress() + " disconnected");
 
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			 
+	 }
 
   //This start method pushes the client connection and sends it to the client() method being passed a socket
 	public void start() {
