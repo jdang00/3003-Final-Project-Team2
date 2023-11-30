@@ -56,3 +56,29 @@ Nov 29, 2023 11:03:33 PM UAServer client
 INFO: Received command from client 127.0.0.1: iP
 Nov 29, 2023 11:03:33 PM UAServer client
 INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:46:20 PM UAServer <init>
+INFO: Server listening on port 8080
+Nov 29, 2023 11:46:44 PM UAServer start
+INFO: New client connection from IP address 192.168.0.18
+Nov 29, 2023 11:46:51 PM UAServer client
+INFO: Received command from client 192.168.0.18: IP
+Nov 29, 2023 11:46:51 PM UAServer client
+INFO: Sent response to client 192.168.0.18: Your IP address is 192.168.0.18
+Nov 29, 2023 11:47:32 PM UAServer client
+INFO: Client 192.168.0.18 disconnected
+Nov 29, 2023 11:54:14 PM UAServer start
+INFO: New client connection from IP address 192.168.0.18
+Nov 30, 2023 12:04:37 AM UAServer start
+INFO: New client connection from IP address 192.168.0.32
+Nov 30, 2023 12:04:39 AM UAServer client
+INFO: Received command from client 192.168.0.32: ip
+Nov 30, 2023 12:04:39 AM UAServer client
+INFO: Sent response to client 192.168.0.32: Your IP address is 192.168.0.32
+Nov 30, 2023 12:04:52 AM UAServer client
+INFO: Client 192.168.0.32 disconnected
+Nov 30, 2023 12:08:36 AM UAServer <init>
+INFO: Server listening on port 8080
+Nov 30, 2023 12:08:40 AM UAServer start
+INFO: New client connection from IP address 192.168.0.32
+Nov 30, 2023 12:08:54 AM UAServer client
+INFO: Client 192.168.0.32 disconnected

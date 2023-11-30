@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class UAServer {
-	public static final int port = 32005;
+	public static final int port = 8080;
 	private static final String logFile = "serverLog.txt";
 
 	private ServerSocket ss;
@@ -28,7 +28,7 @@ public class UAServer {
   //Creates our Server
 	public UAServer() {
 		try {
-			ss = new ServerSocket(port);
+			ss = new ServerSocket(port, 0, InetAddress.getByName("192.168.0.9"));
 			setupLogger();
 			logger.info("Server listening on port " + port);
 		} catch (IOException e) {
