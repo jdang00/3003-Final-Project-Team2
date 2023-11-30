@@ -1,0 +1,58 @@
+Nov 29, 2023 11:00:08 PM UAServer <init>
+INFO: Server listening on port 32005
+Nov 29, 2023 11:00:19 PM UAServer start
+INFO: New client connection from IP address 127.0.0.1
+Nov 29, 2023 11:00:21 PM UAServer client
+INFO: Received command from client 127.0.0.1: IP
+Nov 29, 2023 11:00:21 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:00:23 PM UAServer client
+INFO: Received command from client 127.0.0.1: ip
+Nov 29, 2023 11:00:23 PM UAServer client
+WARNING: Invalid command ip from client 127.0.0.1
+Nov 29, 2023 11:01:48 PM UAServer <init>
+INFO: Server listening on port 32005
+Nov 29, 2023 11:01:50 PM UAServer start
+INFO: New client connection from IP address 127.0.0.1
+Nov 29, 2023 11:01:55 PM UAServer client
+INFO: Received command from client 127.0.0.1: iP
+Nov 29, 2023 11:01:55 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:01:59 PM UAServer client
+INFO: Received command from client 127.0.0.1: IP
+Nov 29, 2023 11:01:59 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:02:00 PM UAServer client
+INFO: Received command from client 127.0.0.1: ip
+Nov 29, 2023 11:02:00 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:02:04 PM UAServer client
+INFO: Received command from client 127.0.0.1: Ip
+Nov 29, 2023 11:02:04 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:02:05 PM UAServer client
+INFO: Received command from client 127.0.0.1: sijd
+Nov 29, 2023 11:02:05 PM UAServer client
+WARNING: Invalid command sijd from client 127.0.0.1
+Nov 29, 2023 11:03:24 PM UAServer <init>
+INFO: Server listening on port 32005
+Nov 29, 2023 11:03:25 PM UAServer start
+INFO: New client connection from IP address 127.0.0.1
+Nov 29, 2023 11:03:27 PM UAServer client
+INFO: Received command from client 127.0.0.1: ip[
+Nov 29, 2023 11:03:27 PM UAServer client
+WARNING: Invalid command ip[ from client 127.0.0.1
+Nov 29, 2023 11:03:27 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Unknown command. Type HELP for available commands.
+Nov 29, 2023 11:03:29 PM UAServer client
+INFO: Received command from client 127.0.0.1: IP
+Nov 29, 2023 11:03:29 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:03:31 PM UAServer client
+INFO: Received command from client 127.0.0.1: ip
+Nov 29, 2023 11:03:31 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1
+Nov 29, 2023 11:03:33 PM UAServer client
+INFO: Received command from client 127.0.0.1: iP
+Nov 29, 2023 11:03:33 PM UAServer client
+INFO: Sent response to client 127.0.0.1: Your IP address is 127.0.0.1

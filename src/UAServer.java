@@ -50,13 +50,13 @@ public class UAServer {
 	                String[] request = inputLine.split(" ");
 	                String response;
 
-	                switch (request[0]) {
+	                switch (request[0].toUpperCase()) {
 	                    case "IP":
 	                        response = "Your IP address is " + cs.getInetAddress().getHostAddress();
 	                        break;
 	                    default:
 	                        logger.warning("Invalid command " + request[0] + " from client " + cs.getInetAddress().getHostAddress());
-	                        continue;
+							response = "Unknown command. Type HELP for available commands.";
 	                }
 
 	                pw.println(response);
