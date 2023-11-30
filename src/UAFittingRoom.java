@@ -1,3 +1,7 @@
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
 public class UAFittingRoom {
    //Creating our Socket,Host, and Port 
 	private static final String host = "localhost"; 
