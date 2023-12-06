@@ -1,9 +1,9 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,59 +11,125 @@ import java.util.logging.SimpleFormatter;
 
 public class UAFittingRoomServ {
 
-    public static final int port = 35555;
-    private static final String logFile = "serverLog.txt";
+    private static final String host = "localhost";
+    private static final int port = 35555; //Our Port
+    private Socket cs;
 
-    private ServerSocket ss;
-    private Logger logger;
 
     //Setting up our logger
-    public void setupLogger() {
-        try {
-            logger = Logger.getLogger(UAServer.class.getName());
-            FileHandler fh = new FileHandler(logFile, true);
-            fh.setFormatter(new SimpleFormatter());
-            logger.addHandler(fh);
-            logger.setLevel(Level.INFO);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     public UAFittingRoomServ() {
         try {
-            ss = new ServerSocket(port);
-            setupLogger();
-            logger.info("Server listening on port " + port);
+            cs = new Socket(host, port);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    //This is the client handler and is set up to handle inputs
-    public void client(Socket cs) {
-
-
-    }
-
-    //This start method pushes the client connection and sends it to the client() method being passed a socket
-    public void start() {
-        while (true) {
-            try {
-                Socket cs = ss.accept();
-                logger.info("New client connection from IP address " + cs.getInetAddress().getHostAddress());
-
-                new Thread(() -> client(cs)).start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void close() {
+        try {
+            cs.close();
+            System.out.println("Connection Closed.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    int numRooms;
+    int numSeats;
+    int numCustomers;
+    Semaphore seatController;
+    Semaphore roomController;
+    long systemTime;
+
+    static UAFittingRoomServ store = new UAFittingRoomServ();
+
 
     //Simply starts the server
     public static void main(String[] args) {
-        UAFittingRoomServ server = new UAFittingRoomServ();
-        server.start();
+
+//        store.systemTime = Long.parseLong(args[0]) * 1000;
+//        store.numSeats = Integer.parseInt(args[1]) * 2;
+//        store.numRooms = Integer.parseInt(args[1]);
+//        store.numCustomers = store.numSeats + store.numRooms;
+
+
+        store.seatController = new Semaphore(store.numSeats);
+        store.roomController = new Semaphore(store.numRooms);
+
+
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            String userRequest = sc.nextLine();
+            if (userRequest.equalsIgnoreCase("exit")) {
+                break;
+            }
+        }
+
+        store.close();
+        sc.close();
+    }
+
+
+
+    public void getRoom(int customerID) throws InterruptedException {
+        roomController.acquire();
+        freeSeat();
+        System.out.println("\t\tCustomer #" + customerID + " enters the changing room. ");
+
+    }
+
+    public void freeRoom(int customerID) throws InterruptedException {
+        roomController.release();
+        System.out.println("\t\t\tCustomer #" + customerID + " leaves the changing room.");
+
+    }
+
+    public void getSeat(int customerID) throws InterruptedException {
+
+        if (seatController.tryAcquire()) {
+            System.out.println("\tCustomer #" + customerID + " enters the waiting area and has a seat.");
+
+        } else {
+            System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
+
+        }
+
+
+    }
+
+    public void freeSeat() {
+        seatController.release();
+    }
+
+    class Customer extends Thread {
+        int customerID;
+
+        public Customer(int customerID) {
+            this.customerID = customerID;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Customer #" + customerID + " enters the system");
+            try {
+
+                store.getSeat(customerID);
+                store.getRoom(customerID);
+                Thread.sleep(new Random().nextInt(1000));
+                store.freeRoom(customerID);
+
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+
+        }
+
     }
 
 }

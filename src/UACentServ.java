@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -10,6 +11,7 @@ public class UACentServ {
     private static final String logFile = "serverLog.txt";
 
     private ServerSocket ss;
+    private ServerSocket fs;
     private Logger logger;
 
     //Setting up our logger
@@ -28,9 +30,15 @@ public class UACentServ {
     //Creates our Server
     public UACentServ() {
         try {
-            ss = new ServerSocket(port);
             setupLogger();
+
+
+            fs = new ServerSocket(35555);
+            logger.info("Server listening on port 35555");
+
+            ss = new ServerSocket(port);
             logger.info("Server listening on port " + port);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,29 +46,13 @@ public class UACentServ {
 
 
     //This is the client handler and is set up to handle inputs
-    public void client() {
-        String host = "localhost";
-        int port = 35555;
+    public void clientHandler() {
 
-        try (Socket toFitServ = new Socket(host, port);
-        ) {
-            Scanner sc = new Scanner(System.in);
 
-            while(true){
-                String userRequest = sc.nextLine();
-                if (userRequest.equalsIgnoreCase("exit")) {
-                    break;
-                }
-            }
 
-            toFitServ.close();
-            System.out.println("Connection closed");
-            sc.close();
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public void fittingRoomServerHandler(){
 
     }
 
@@ -68,20 +60,33 @@ public class UACentServ {
     public void start() {
         while (true) {
             try {
-                Socket cs = ss.accept();
-                logger.info("New client connection from IP address " + cs.getInetAddress().getHostAddress());
 
-                new Thread(this::client).start();
+                Socket fitServ = fs.accept();
+                logger.info("New server connection from IP address " + fitServ.getInetAddress().getHostAddress());
+
+                Socket client = ss.accept();
+                logger.info("New client connection from IP address " + client.getInetAddress().getHostAddress());
+
+
+                new Thread(this::clientHandler).start();
+                new Thread (this::fittingRoomServerHandler).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+
+
     //Simply starts the server
     public static void main(String[] args) {
         UACentServ server = new UACentServ();
         server.start();
+
     }
+
+
+
+
 
 }
