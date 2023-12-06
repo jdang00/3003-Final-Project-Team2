@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
@@ -13,14 +14,14 @@ public class UAFittingRoomServ {
 
     private static final String host = "localhost";
     private static final int port = 35555; //Our Port
-    private Socket cs;
 
 
     //Setting up our logger
 
     public UAFittingRoomServ() {
         try {
-            cs = new Socket(host, port);
+            Socket cs = new Socket(host, port);
+            System.out.println("test");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -28,7 +29,7 @@ public class UAFittingRoomServ {
     }
 
 
-    public void close() {
+    public void close(Socket cs) {
         try {
             cs.close();
             System.out.println("Connection Closed.");
@@ -44,7 +45,6 @@ public class UAFittingRoomServ {
     Semaphore roomController;
     long systemTime;
 
-    static UAFittingRoomServ store = new UAFittingRoomServ();
 
 
     //Simply starts the server
@@ -56,8 +56,11 @@ public class UAFittingRoomServ {
 //        store.numCustomers = store.numSeats + store.numRooms;
 
 
-        store.seatController = new Semaphore(store.numSeats);
-        store.roomController = new Semaphore(store.numRooms);
+        UAFittingRoomServ store = new UAFittingRoomServ();
+        UAFittingRoomServ store1 = new UAFittingRoomServ();
+        UAFittingRoomServ store2 = new UAFittingRoomServ();
+
+
 
 
         Scanner sc = new Scanner(System.in);
@@ -69,7 +72,6 @@ public class UAFittingRoomServ {
             }
         }
 
-        store.close();
         sc.close();
     }
 
@@ -107,9 +109,11 @@ public class UAFittingRoomServ {
 
     class Customer extends Thread {
         int customerID;
+        UAFittingRoomServ store;
 
-        public Customer(int customerID) {
+        public Customer(int customerID,UAFittingRoomServ store) {
             this.customerID = customerID;
+            this.store = store;
         }
 
         @Override

@@ -14,6 +14,8 @@ public class UACentServ {
     private ServerSocket fs;
     private Logger logger;
 
+    static private int numFitServ;
+
     //Setting up our logger
     public void setupLogger() {
         try {
@@ -46,13 +48,13 @@ public class UACentServ {
 
 
     //This is the client handler and is set up to handle inputs
-    public void clientHandler() {
+    public void clientHandler(Socket cs) {
 
 
 
     }
 
-    public void fittingRoomServerHandler(){
+    public void fittingRoomServerHandler(Socket cs){
 
     }
 
@@ -61,15 +63,19 @@ public class UACentServ {
         while (true) {
             try {
 
-                Socket fitServ = fs.accept();
-                logger.info("New server connection from IP address " + fitServ.getInetAddress().getHostAddress());
 
-                Socket client = ss.accept();
-                logger.info("New client connection from IP address " + client.getInetAddress().getHostAddress());
+                for(int i = 0; i < numFitServ; i++){
+                    Socket fitServ = fs.accept();
+                    logger.info("New server connection from IP address " + fitServ.getInetAddress().getHostAddress());
+                    new Thread(() -> fittingRoomServerHandler(fitServ)).start();
+                }
 
 
-                new Thread(this::clientHandler).start();
-                new Thread (this::fittingRoomServerHandler).start();
+                Socket clientServ = ss.accept();
+                logger.info("New client connection from IP address " + clientServ.getInetAddress().getHostAddress());
+                new Thread(() -> clientHandler(clientServ)).start();
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,7 +86,9 @@ public class UACentServ {
 
     //Simply starts the server
     public static void main(String[] args) {
+        numFitServ = 3;
         UACentServ server = new UACentServ();
+
         server.start();
 
     }
