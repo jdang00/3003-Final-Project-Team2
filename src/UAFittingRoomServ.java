@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ public class UAFittingRoomServ {
     private static final String host = "localhost";
     private static final int port = 35555; //Our Port
 
+    Socket cs;
 
-    //Setting up our logger
+    private ObjectInputStream in;
 
     public UAFittingRoomServ() {
         try {
-            Socket cs = new Socket(host, port);
-            System.out.println("test");
+            cs = new Socket(host, port);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,6 +59,16 @@ public class UAFittingRoomServ {
         UAFittingRoomServ store = new UAFittingRoomServ();
         UAFittingRoomServ store1 = new UAFittingRoomServ();
         UAFittingRoomServ store2 = new UAFittingRoomServ();
+
+        try{
+            InputStream inputStream = store.cs.getInputStream();
+            ObjectInputStream ois = new ObjectInputStream(inputStream);
+            int id = (int) ois.readObject();
+            System.out.println(id);
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
 
 

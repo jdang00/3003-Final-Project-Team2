@@ -1,12 +1,11 @@
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-public class UACentServ {
+public class UACentServ{
     public static final int port = 35000;
     private static final String logFile = "serverLog.txt";
 
@@ -51,11 +50,23 @@ public class UACentServ {
     public void clientHandler(Socket cs) {
 
 
-
     }
 
     public void fittingRoomServerHandler(Socket cs){
 
+        int id = new Random().nextInt(200);
+        try{
+
+
+            OutputStream outputStream = cs.getOutputStream();
+            ObjectOutputStream output = new ObjectOutputStream(outputStream);
+
+            output.writeObject(id);
+            output.close();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     //This start method pushes the client connection and sends it to the client() method being passed a socket
