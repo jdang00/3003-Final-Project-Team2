@@ -43,6 +43,8 @@ public class UAFittingRoomServ {
     Semaphore seatController;
     Semaphore roomController;
     long systemTime;
+    int waiting;
+    int changing;
 
     InputStream inputStream;
     ObjectInputStream ois;
@@ -92,24 +94,28 @@ public class UAFittingRoomServ {
         sc.close();
     }
 
-    public void getRoom(int customerID) throws InterruptedException {
+    public void getRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
+        waiting--; 
+        changing++;
         roomController.acquire();
         freeSeat();
-        System.out.println("\t\tCustomer #" + customerID + " enters the changing room. ");
-
+        System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+store+": "+cs.getInetAddress().getHostAddress()+">");
+        System.out.println("\t\tWe have "+ waiting + "waiting and "+changing+"changing");
     }
 
-    public void freeRoom(int customerID) throws InterruptedException {
+    public void freeRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
         roomController.release();
-        System.out.println("\t\t\tCustomer #" + customerID + " leaves the changing room.");
+        changing--;
+        System.out.println("\t\t\tCustomer #" + customerID + " leaves the  Fitting Room.");
 
     }
 
-    public void getSeat(int customerID) throws InterruptedException {
+    public void getSeat(int customerID,UAFittingRoomServ store) throws InterruptedException {
 
         if (seatController.tryAcquire()) {
-            System.out.println("\tCustomer #" + customerID + " enters the waiting area and has a seat.");
-
+            waiting++;
+            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+store+": "+cs.getInetAddress().getHostAddress()+">"+"and has a seat.");
+            System.out.println("\tWe have " + waiting + "waiting on <Server "+store+": "+cs.getInetAddress().getHostAddress());
         } else {
             System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
 
@@ -117,6 +123,7 @@ public class UAFittingRoomServ {
 
 
     }
+
 
     public void freeSeat() {
         seatController.release();
@@ -136,10 +143,10 @@ public class UAFittingRoomServ {
             System.out.println("Customer #" + customerID + " enters the system");
             try {
 
-                store.getSeat(customerID);
-                store.getRoom(customerID);
+                store.getSeat(customerID,store);
+                store.getRoom(customerID,store);
                 Thread.sleep(new Random().nextInt(1000));
-                store.freeRoom(customerID);
+                store.freeRoom(customerID,store);
 
 
             } catch (InterruptedException e) {
