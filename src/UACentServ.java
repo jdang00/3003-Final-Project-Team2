@@ -92,6 +92,8 @@ public class UACentServ{
                 System.out.println(line);
             }
 
+
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -101,6 +103,7 @@ public class UACentServ{
     ArrayList<Socket> FitRoomServersList = new ArrayList<>();
     ArrayList<PrintWriter> PrintStream = new ArrayList<>();
     ArrayList<BufferedReader> ReaderStream = new ArrayList<>();
+
     int roundRobinCounter = 1;
 
     int clientCounter = 1;

@@ -2390,3 +2390,43 @@ Dec 07, 2023 3:26:24 AM UACentServ start
 INFO: New client connection from IP address 127.0.0.1
 Dec 07, 2023 3:26:24 AM UACentServ start
 INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:46:59 AM UACentServ <init>
+INFO: Server listening on port 35555
+Dec 07, 2023 3:46:59 AM UACentServ <init>
+INFO: Server listening on port 35000
+Dec 07, 2023 3:47:06 AM UACentServ start
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:06 AM UACentServ start
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:06 AM UACentServ start
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:08 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:09 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:09 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:10 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:10 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:10 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:11 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:12 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:13 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:14 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:14 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:14 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:15 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:15 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1
+Dec 07, 2023 3:47:16 AM UACentServ start
+INFO: New client connection from IP address 127.0.0.1

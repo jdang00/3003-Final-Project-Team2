@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,28 +10,24 @@ public class UAClient {
     //Creating our Socket,Host, and Port
     private static final String host = "localhost";
     private static final int port = 35000; //Our Port
-    private Socket cs;
+
+    BufferedReader br;
+
 
     //Creating the Client and obtaining the users input stream
     public UAClient() {
         try {
-            cs = new Socket(host, port);
+            Socket cs = new Socket(host, port);
+            br = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void close() {
-        try {
-            cs.close();
-            System.out.println("Connection Closed.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
 
     public static void main(String[] args) {
-
 
         for(int i = 0; i < 15; i++){
             UAClient client = new UAClient();
@@ -37,8 +35,10 @@ public class UAClient {
                 Thread.sleep(new Random().nextInt(1000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
-            }        }
+            }
 
+        }
 
     }
+
 }
