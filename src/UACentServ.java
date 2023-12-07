@@ -34,7 +34,6 @@ public class UACentServ{
         try {
             setupLogger();
 
-
             fs = new ServerSocket(35555);
             logger.info("Server listening on port 35555");
 
@@ -50,12 +49,14 @@ public class UACentServ{
     //This is the client handler and is set up to handle inputs
     public void clientHandler(Socket cs) {
 
+        new Thread(() -> fittingRoomServerHandler(FitRoomServersList.get(loadBalancer()))).start();
+
 
     }
 
     public void fittingRoomServerHandler(Socket cs){
 
-        Client c = new Client(new Random().nextInt(200));
+        Client c = new Client(clientCounter++);
 
         try{
 
@@ -74,26 +75,23 @@ public class UACentServ{
     ArrayList<Socket> FitRoomServersList = new ArrayList<>();
     int roundRobinCounter = 0;
 
+    int clientCounter = 0;
+
     //This start method pushes the client connection and sends it to the client() method being passed a socket
     public void start() {
         while (true) {
             try {
 
-
                 for(int i = 0; i < numFitServ; i++){
                     Socket fitServ = fs.accept();
                     FitRoomServersList.add(fitServ);
-                    logger.info("New server connection from IP address " + fitServ.getInetAddress().getHostAddress());
-
-
-                    new Thread(() -> fittingRoomServerHandler(fitServ)).start();
+                    logger.info("New fitting room server connection from IP address " + fitServ.getInetAddress().getHostAddress());
                 }
 
-
+                System.out.println("Test");
                 Socket clientServ = ss.accept();
                 logger.info("New client connection from IP address " + clientServ.getInetAddress().getHostAddress());
                 new Thread(() -> clientHandler(clientServ)).start();
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -103,11 +101,7 @@ public class UACentServ{
 
     public int loadBalancer(){
 
-        if(roundRobinCounter == FitRoomServersList.size()){
-            return 0;
-        }else {
-            return roundRobinCounter++;
-        }
+        return 0;
 
     }
 
@@ -115,7 +109,7 @@ public class UACentServ{
 
     //Simply starts the server
     public static void main(String[] args) {
-        numFitServ = 3;
+        numFitServ = 1;
         UACentServ server = new UACentServ();
 
         server.start();

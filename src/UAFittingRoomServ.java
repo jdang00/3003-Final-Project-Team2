@@ -21,11 +21,12 @@ public class UAFittingRoomServ {
         try {
             cs = new Socket(host, port);
 
+            inputStream = cs.getInputStream();
+            ois = new ObjectInputStream(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void close(Socket cs) {
         try {
@@ -43,7 +44,28 @@ public class UAFittingRoomServ {
     Semaphore roomController;
     long systemTime;
 
+    InputStream inputStream;
+    ObjectInputStream ois;
 
+    public void acceptClients(){
+
+        while(true){
+            try{
+                Client c = (Client) ois.readObject();
+
+                System.out.println(c.getId() + " -> " + c.checkedOut);
+
+
+            }catch(IOException ex){
+                ex.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+    }
 
     //Simply starts the server
     public static void main(String[] args) {
@@ -55,18 +77,7 @@ public class UAFittingRoomServ {
 
 
         UAFittingRoomServ store = new UAFittingRoomServ();
-        UAFittingRoomServ store1 = new UAFittingRoomServ();
-        UAFittingRoomServ store2 = new UAFittingRoomServ();
-
-        try{
-            InputStream inputStream = store.cs.getInputStream();
-            ObjectInputStream ois = new ObjectInputStream(inputStream);
-            Client c = (Client) ois.readObject();
-            System.out.println(c.getId() + " -> " + c.checkedOut);
-
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
+        store.acceptClients();
 
 
         Scanner sc = new Scanner(System.in);
