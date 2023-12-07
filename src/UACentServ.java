@@ -40,6 +40,7 @@ public class UACentServ{
             logger.setLevel(Level.INFO);
         } catch (IOException e) {
             e.printStackTrace();
+            logger.warning("Error at setupLogger()");
         }
     }
 
@@ -64,6 +65,7 @@ public class UACentServ{
 
         } catch (IOException e) {
             e.printStackTrace();
+            logger.warning("Error on UACentServ(int numFitServ) constructor ports are 35555 and " + port);
         }
     }
 
@@ -74,6 +76,7 @@ public class UACentServ{
     public void clientHandler(Socket cs) {
 
         new Thread(() -> fittingRoomServerHandler(FitRoomServersList.get(loadBalancer()), loadBalancer())).start();
+        logger.info("Client " + cs.getInetAddress().getHostAddress() + " is being balanced");
 
 
     }
@@ -87,15 +90,15 @@ public class UACentServ{
         try{
             PrintWriter pw = PrintStream.get(servNum);
             pw.println(clientCounter++);
+            logger.info("Current State of Client Counter "+ clientCounter);
             String line;
             while ((line = ReaderStream.get(servNum).readLine()) != null){
                 System.out.println(line);
             }
 
-
-
         }catch (Exception ex){
             ex.printStackTrace();
+            logger.warning("Error occured on fittingRoomServerHandler() from server "+ servNum + " located at " + cs.getInetAddress().getHostAddress());
         }
     }
 
@@ -103,7 +106,6 @@ public class UACentServ{
     ArrayList<Socket> FitRoomServersList = new ArrayList<>();
     ArrayList<PrintWriter> PrintStream = new ArrayList<>();
     ArrayList<BufferedReader> ReaderStream = new ArrayList<>();
-
     int roundRobinCounter = 1;
 
     int clientCounter = 1;
@@ -135,6 +137,7 @@ public class UACentServ{
 
         }catch (IOException ex){
             ex.printStackTrace();
+            logger.warning("Error at start() method on the fitServ socket from IP Adress");
         }
 
 
@@ -148,6 +151,7 @@ public class UACentServ{
 
             } catch (IOException e) {
                 e.printStackTrace();
+                logger.warning("Error at start() method on the clientServ socket");
             }
         }
     }
