@@ -1,0 +1,50 @@
+﻿body {
+    background-color: darkslategrey;
+}
+
+button {
+    background-color: darkcyan;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: cyan;
+}
+.wrapper_top{
+    align-items: center;
+    text-align: center;
+    background-color:black;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 35px;
+}
+
+.input {
+
+    display: grid;
+    grid-template-columns: 10fr 5fr 10fr;
+}
+
+.input_center {
+    text-align: right;
+}
+
+.customer_time {
+    padding: 10px;
+}
+
+.num_fitting_rooms {
+    padding: 10px;
+}
+
+.start_btn {
+
+}
+
+

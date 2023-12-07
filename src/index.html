@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitting Room Simulation</title>
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+<body>
+
+    <div class="wrapper_top">
+        <h1>Fitting Room Simulation</h1>
+        <form id="simulationForm" action="script.js" method="get">
+            <div class="input">
+                <div></div>
+                <div class="input_center">
+                    <div class="customer_time">
+                        <label for="arrivalTime">Arrival Time (seconds):</label>
+                        <input type="number" id="arrivalTime" name="arrivalTime" required min="1">
+                    </div>
+                    <div class="num_fitting_rooms">
+                        <label for="numFittingRooms">Number of Fitting Rooms:</label>
+                        <input type="number" id="numFittingRooms" name="numFittingRooms" required min="1">
+                    </div>
+                </div>
+                <div></div>
+                
+            </div>
+            <div class="start_btn">
+                <button type="button" onclick="startSimulation()">Start Simulation</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div id="customerList">
+        <!-- Customer list will be dynamically updated here -->
+    </div>
+
+    <script src="script.js"></script> <!-- Include your JavaScript file -->
+</body>
+</html>
