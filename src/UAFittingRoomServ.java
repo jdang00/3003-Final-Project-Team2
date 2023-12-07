@@ -1,5 +1,7 @@
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
@@ -136,13 +138,13 @@ public class UAFittingRoomServ {
      * @param waiting decreases the count in this instance as the client/customer is no longer waiting in a chair and has now obtained a fitting room
      * @param changing increases the count in this instance as the client/customer is now changing
      */
-    public void getRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
+    public void getRoom(int customerID,UAFittingRoomServ store) throws InterruptedException, UnknownHostException {
         waiting--;
         changing++;
         roomController.acquire();
         freeSeat();
-        System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+serverId+": "+cs.getInetAddress().getHostAddress()+">");
-        pw.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+serverId+": "+cs.getInetAddress().getHostAddress()+">");
+        System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+serverId+": "+ InetAddress.getLocalHost() +">");
+        pw.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+serverId+": "+InetAddress.getLocalHost()+">");
         System.out.println("\t\tWe have "+ waiting + " waiting and "+changing+" changing");
         pw.println("\t\tWe have "+ waiting + " waiting and "+changing+" changing");
     }
@@ -173,14 +175,14 @@ public class UAFittingRoomServ {
      * @param waiting increases as the customer has not entered a fitting room and is waiting to enter a fitting room
      * @param seatController waitingRoom chairs semaphore to be acquired
      */
-    public void getSeat(int customerID,UAFittingRoomServ store) throws InterruptedException {
+    public void getSeat(int customerID,UAFittingRoomServ store) throws InterruptedException, UnknownHostException {
 
         if (seatController.tryAcquire()) {
             waiting++;
-            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverId+": "+ cs.getInetAddress().getHostAddress()+"> and has a seat.");
-            pw.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverId+": "+ cs.getInetAddress().getHostAddress()+"> and has a seat.");
+            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverId+": "+ InetAddress.getLocalHost()+"> and has a seat.");
+            pw.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverId+": "+ InetAddress.getLocalHost()+"> and has a seat.");
 
-            System.out.println("\tWe have " + waiting + " waiting on <Server "+serverId+": "+cs.getInetAddress().getHostAddress());
+            System.out.println("\tWe have " + waiting + " waiting on <Server "+serverId+": "+InetAddress.getLocalHost());
         } else {
             System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
 
@@ -226,7 +228,7 @@ public class UAFittingRoomServ {
                 store.freeRoom(customerID,store);
 
 
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | UnknownHostException e) {
                 throw new RuntimeException(e);
             }
 
