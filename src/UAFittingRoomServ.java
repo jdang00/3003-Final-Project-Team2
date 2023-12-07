@@ -13,6 +13,13 @@ public class UAFittingRoomServ {
 
     Socket cs;
 
+    /*
+     * <p>
+     * -The Constructor UAFittingRoom will set the server id
+     * -bound the cs socket to a host and port
+     * -Sets up the BufferedReader
+     * </p>
+     */
     public UAFittingRoomServ(int serverId) {
         this.serverId = serverId;
         try {
@@ -23,6 +30,11 @@ public class UAFittingRoomServ {
         }
     }
 
+    /*
+     * <p>
+     * The close() method closes the connection to the socket
+     * </p>
+     */
     public void close(Socket cs) {
         try {
             cs.close();
@@ -44,6 +56,11 @@ public class UAFittingRoomServ {
 
     BufferedReader in;
 
+    /*
+     * <p>
+     * The acceptClients() method reads an input of clients and accepts them
+     * </p>
+     */
     public void acceptClients(){
         try{
             String line;
@@ -56,7 +73,17 @@ public class UAFittingRoomServ {
 
     }
 
-    //Simply starts the server
+    /*
+     * <p>
+     * The main method takes in two argument line parameters 
+     * -System running time args[0]
+     * -Number of seats in the fitting room args[1]
+     * </p>
+     * @param args[0] The alloted time for the whole system to run
+     * @param args[1] The number of designated waiting seats in the fittingRoom
+     * @param serverList An array list of servers to be started
+     * @param serverThread the thread that represents the server and allows for multiple servers
+     */
     public static void main(String[] args) {
 
 //        store.systemTime = Long.parseLong(args[0]) * 1000;
@@ -85,7 +112,16 @@ public class UAFittingRoomServ {
 
         sc.close();
     }
-
+    
+    /*
+     * <p>
+     * The getRoom() method pulls the roomController semaphore and lets the user enter a fitting room 
+     * </P>
+     * @param customerID the identification number of the client/customer
+     * @param store the server that the client/customer is located in
+     * @param waiting decreases the count in this instance as the client/customer is no longer waiting in a chair and has now obtained a fitting room
+     * @param changing increases the count in this instance as the client/customer is now changing
+     */
     public void getRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
         waiting--;
         changing++;
@@ -95,6 +131,15 @@ public class UAFittingRoomServ {
         System.out.println("\t\tWe have "+ waiting + "waiting and "+changing+"changing");
     }
 
+    /*
+     * <p>
+     * -The freeRoom() method releases the fitting room(roomController.release()) and lets the client/customer exit the fitting room
+     * </p>
+     * @param customerID the identification number of the client/customer
+     * @param store the server that the client/customer is located in
+     * @param changing decreases the count as the client/customer has exited the fitting room 
+     * @param roomController Fitting Room semaphore to be released
+     */
     public void freeRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
         roomController.release();
         changing--;
@@ -102,6 +147,15 @@ public class UAFittingRoomServ {
 
     }
 
+    /*
+     * <p>
+     * The getSeat() method will obtain the waiting chair
+     * </p>
+     * @param customerID the identification number of the client/customer
+     * @param store the server that the client/customer is located in
+     * @param waiting increases as the customer has not entered a fitting room and is waiting to enter a fitting room
+     * @param seatController waitingRoom chairs semaphore to be acquired
+     */
     public void getSeat(int customerID,UAFittingRoomServ store) throws InterruptedException {
 
         if (seatController.tryAcquire()) {
@@ -117,10 +171,18 @@ public class UAFittingRoomServ {
     }
 
 
+    /*
+     * The freeSeat method is called to release the waiting room seatController semapgore
+     */
     public void freeSeat() {
         seatController.release();
     }
 
+    /*
+     * <p>
+     * The Customer class represents the client/customer and includes a constructor and a run() method
+     * </p>
+     */
     class Customer extends Thread {
         int customerID;
         UAFittingRoomServ store;
@@ -130,6 +192,9 @@ public class UAFittingRoomServ {
             this.store = store;
         }
 
+        /*
+         * the run() method allows the seperate threads to run the system
+         */
         @Override
         public void run() {
             System.out.println("Customer #" + customerID + " enters the system");
