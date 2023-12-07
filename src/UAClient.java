@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class UAClient {
@@ -32,19 +33,12 @@ public class UAClient {
 
         for(int i = 0; i < 15; i++){
             UAClient client = new UAClient();
-        }
+            try {
+                Thread.sleep(new Random().nextInt(1000));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }        }
 
 
-
-        Scanner sc = new Scanner(System.in);
-
-        while(true){
-            String userRequest = sc.nextLine();
-            if (userRequest.equalsIgnoreCase("exit")) {
-                break;
-            }
-        }
-
-        sc.close();
     }
 }

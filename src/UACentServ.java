@@ -87,6 +87,11 @@ public class UACentServ{
         try{
             PrintWriter pw = PrintStream.get(servNum);
             pw.println(clientCounter++);
+            String line;
+            while ((line = ReaderStream.get(servNum).readLine()) != null){
+                System.out.println(line);
+            }
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -95,6 +100,7 @@ public class UACentServ{
 
     ArrayList<Socket> FitRoomServersList = new ArrayList<>();
     ArrayList<PrintWriter> PrintStream = new ArrayList<>();
+    ArrayList<BufferedReader> ReaderStream = new ArrayList<>();
     int roundRobinCounter = 1;
 
     int clientCounter = 1;
@@ -116,7 +122,10 @@ public class UACentServ{
                 Socket fitServ = fs.accept();
                 FitRoomServersList.add(fitServ);
                 PrintWriter out = new PrintWriter(fitServ.getOutputStream(), true);
+                BufferedReader in = new BufferedReader (new InputStreamReader(fitServ.getInputStream()));
+                ReaderStream.add(in);
                 PrintStream.add(out);
+
                 logger.info("New fitting room server connection from IP address " + fitServ.getInetAddress().getHostAddress());
 
             }
@@ -173,6 +182,5 @@ public class UACentServ{
 
 
     }
-
 
 }

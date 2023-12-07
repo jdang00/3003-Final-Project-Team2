@@ -25,6 +25,7 @@ public class UAFittingRoomServ {
         try {
             cs = new Socket(host, port);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+            pw = new PrintWriter(cs.getOutputStream(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,6 +57,7 @@ public class UAFittingRoomServ {
 
 
     BufferedReader in;
+    PrintWriter pw;
 
     /*
      * <p>
@@ -139,8 +141,10 @@ public class UAFittingRoomServ {
         changing++;
         roomController.acquire();
         freeSeat();
-        System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+store+": "+cs.getInetAddress().getHostAddress()+">");
+        System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+serverId+": "+cs.getInetAddress().getHostAddress()+">");
+        pw.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+serverId+": "+cs.getInetAddress().getHostAddress()+">");
         System.out.println("\t\tWe have "+ waiting + " waiting and "+changing+" changing");
+        pw.println("\t\tWe have "+ waiting + " waiting and "+changing+" changing");
     }
 
     /*
@@ -156,6 +160,7 @@ public class UAFittingRoomServ {
         roomController.release();
         changing--;
         System.out.println("\t\t\tCustomer #" + customerID + " leaves the  Fitting Room.");
+        pw.println("\t\t\tCustomer #" + customerID + " leaves the  Fitting Room.");
 
     }
 
@@ -172,8 +177,10 @@ public class UAFittingRoomServ {
 
         if (seatController.tryAcquire()) {
             waiting++;
-            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+store+": "+ cs.getInetAddress().getHostAddress()+"> and has a seat.");
-            System.out.println("\tWe have " + waiting + " waiting on <Server "+store+": "+cs.getInetAddress().getHostAddress());
+            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverId+": "+ cs.getInetAddress().getHostAddress()+"> and has a seat.");
+            pw.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverId+": "+ cs.getInetAddress().getHostAddress()+"> and has a seat.");
+
+            System.out.println("\tWe have " + waiting + " waiting on <Server "+serverId+": "+cs.getInetAddress().getHostAddress());
         } else {
             System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
 
@@ -210,6 +217,7 @@ public class UAFittingRoomServ {
         @Override
         public void run() {
             System.out.println("Customer #" + customerID + " enters the system");
+            pw.println("Customer #" + customerID + " enters the system");
             try {
 
                 store.getSeat(customerID,store);
