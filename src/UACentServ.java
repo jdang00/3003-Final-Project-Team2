@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +51,8 @@ public class UACentServ{
      * @param fs is a socket bound to port 35555
      * @param ss is a socket bound to port 35000 but is dynamic 
      */
-    public UACentServ() {
+    public UACentServ(int numFitServ) {
+        UACentServ.numFitServ = numFitServ;
         try {
             setupLogger();
 
@@ -86,7 +86,7 @@ public class UACentServ{
 
         try{
             PrintWriter pw = PrintStream.get(servNum);
-            pw.println("moving Customer #" + clientCounter++);
+            pw.println(clientCounter++);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class UACentServ{
     ArrayList<PrintWriter> PrintStream = new ArrayList<>();
     int roundRobinCounter = 1;
 
-    int clientCounter = 0;
+    int clientCounter = 1;
 
     //This start method pushes the client connection and sends it to the client() method being passed a socket
     /*
@@ -113,7 +113,6 @@ public class UACentServ{
         try {
 
             for(int i = 0; i < numFitServ; i++){
-                System.out.println(i);
                 Socket fitServ = fs.accept();
                 FitRoomServersList.add(fitServ);
                 PrintWriter out = new PrintWriter(fitServ.getOutputStream(), true);
@@ -167,10 +166,11 @@ public class UACentServ{
      * @param server the creation of the central server
      */
     public static void main(String[] args) {
-        numFitServ = 3;
-        UACentServ server = new UACentServ();
 
-        server.start();
+        UACentServ centralServer = new UACentServ(3);
+        centralServer.start();
+
+
 
     }
 

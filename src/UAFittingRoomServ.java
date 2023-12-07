@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
@@ -21,6 +20,7 @@ public class UAFittingRoomServ {
      * </p>
      */
     public UAFittingRoomServ(int serverId) {
+
         this.serverId = serverId;
         try {
             cs = new Socket(host, port);
@@ -54,6 +54,7 @@ public class UAFittingRoomServ {
     int changing;
     int serverId;
 
+
     BufferedReader in;
 
     /*
@@ -65,7 +66,8 @@ public class UAFittingRoomServ {
         try{
             String line;
             while ((line = in.readLine()) != null) {
-                System.out.println("Server #" + serverId + " now " + line);
+                Thread custOp = new Thread(new Customer(Integer.parseInt(line), this));
+                custOp.start();
             }
         }catch(IOException ex){
             ex.printStackTrace();
@@ -86,20 +88,30 @@ public class UAFittingRoomServ {
      */
     public static void main(String[] args) {
 
-//        store.systemTime = Long.parseLong(args[0]) * 1000;
-//        store.numSeats = Integer.parseInt(args[1]) * 2;
-//        store.numRooms = Integer.parseInt(args[1]);
-//        store.numCustomers = store.numSeats + store.numRooms;
+        int numServers = 3;
 
-        ArrayList<UAFittingRoomServ> serverList = new ArrayList<>();
 
-        for(int i = 1 ; i <= 3; i++){
+        for(int i = 1 ; i <= numServers; i++){
+
             UAFittingRoomServ store = new UAFittingRoomServ(i);
-            serverList.add(store);
+
+            // Checks to see if server needs an extra room / seat based off of the remainders
+            int roomsPerServer = (Integer.parseInt(args[1]) - 1) % 3 == i - 1 ? (Integer.parseInt(args[1]) - 1) / 3 + 1 : (Integer.parseInt(args[1]) - 1) / 3;
+            int seatsPerServer = (2 * Integer.parseInt(args[1]) - 1) % 3 == i - 1 ? (2 * Integer.parseInt(args[1]) - 1) / 3 + 1 : (2 * Integer.parseInt(args[1]) - 1) / 3;
+
+
+            store.systemTime = Long.parseLong(args[0]) * 1000;
+            store.numSeats = seatsPerServer;
+            store.numRooms = roomsPerServer;
+            store.numCustomers = store.numSeats + store.numRooms;
+
+            store.seatController = new Semaphore(store.numSeats);
+            store.roomController = new Semaphore(store.numRooms);
 
             Thread serverThread = new Thread(store::acceptClients);
             serverThread.start();
         }
+
 
         Scanner sc = new Scanner(System.in);
 
@@ -128,7 +140,7 @@ public class UAFittingRoomServ {
         roomController.acquire();
         freeSeat();
         System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+store+": "+cs.getInetAddress().getHostAddress()+">");
-        System.out.println("\t\tWe have "+ waiting + "waiting and "+changing+"changing");
+        System.out.println("\t\tWe have "+ waiting + " waiting and "+changing+" changing");
     }
 
     /*
@@ -160,8 +172,8 @@ public class UAFittingRoomServ {
 
         if (seatController.tryAcquire()) {
             waiting++;
-            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+store+": "+cs.getInetAddress().getHostAddress()+">"+"and has a seat.");
-            System.out.println("\tWe have " + waiting + "waiting on <Server "+store+": "+cs.getInetAddress().getHostAddress());
+            System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+store+": "+ cs.getInetAddress().getHostAddress()+"> and has a seat.");
+            System.out.println("\tWe have " + waiting + " waiting on <Server "+store+": "+cs.getInetAddress().getHostAddress());
         } else {
             System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
 
@@ -193,7 +205,7 @@ public class UAFittingRoomServ {
         }
 
         /*
-         * the run() method allows the seperate threads to run the system
+         * the run() method allows the separate threads to run the system
          */
         @Override
         public void run() {
