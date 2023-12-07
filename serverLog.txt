@@ -82,6 +82,8 @@ Nov 30, 2023 12:08:40 AM UAServer start
 INFO: New client connection from IP address 192.168.0.32
 Nov 30, 2023 12:08:54 AM UAServer client
 INFO: Client 192.168.0.32 disconnected
+Nov 30, 2023 9:44:40 AM UAServer <init>
+INFO: Server listening on port 8080
 Dec 06, 2023 3:50:51 AM UACentServ <init>
 INFO: Server listening on port 35000
 Dec 06, 2023 3:52:16 AM UACentServ <init>
