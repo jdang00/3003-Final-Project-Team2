@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -54,20 +55,24 @@ public class UACentServ{
 
     public void fittingRoomServerHandler(Socket cs){
 
-        int id = new Random().nextInt(200);
-        try{
+        Client c = new Client(new Random().nextInt(200));
 
+        try{
 
             OutputStream outputStream = cs.getOutputStream();
             ObjectOutputStream output = new ObjectOutputStream(outputStream);
 
-            output.writeObject(id);
+            output.writeObject(c);
             output.close();
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
     }
+
+
+    ArrayList<Socket> FitRoomServersList = new ArrayList<>();
+    int roundRobinCounter = 0;
 
     //This start method pushes the client connection and sends it to the client() method being passed a socket
     public void start() {
@@ -77,6 +82,7 @@ public class UACentServ{
 
                 for(int i = 0; i < numFitServ; i++){
                     Socket fitServ = fs.accept();
+                    FitRoomServersList.add(fitServ);
                     logger.info("New server connection from IP address " + fitServ.getInetAddress().getHostAddress());
                     new Thread(() -> fittingRoomServerHandler(fitServ)).start();
                 }
@@ -93,6 +99,16 @@ public class UACentServ{
         }
     }
 
+    public int loadBalancer(){
+
+        if(roundRobinCounter == FitRoomServersList.size()){
+            return 0;
+        }else {
+            return roundRobinCounter++;
+        }
+
+    }
+
 
 
     //Simply starts the server
@@ -105,7 +121,18 @@ public class UACentServ{
     }
 
 
+}
 
 
+class Client implements Serializable {
+    private int id;
+    boolean checkedOut = false;
 
+    public Client(int id){
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

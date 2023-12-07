@@ -432,3 +432,23 @@ Dec 06, 2023 6:30:37 AM UACentServ start
 INFO: New server connection from IP address 127.0.0.1
 Dec 06, 2023 6:30:37 AM UACentServ start
 INFO: New server connection from IP address 127.0.0.1
+Dec 06, 2023 5:39:29 PM UACentServ <init>
+INFO: Server listening on port 35555
+Dec 06, 2023 5:39:29 PM UACentServ <init>
+INFO: Server listening on port 35000
+Dec 06, 2023 5:39:32 PM UACentServ start
+INFO: New server connection from IP address 127.0.0.1
+Dec 06, 2023 5:39:32 PM UACentServ start
+INFO: New server connection from IP address 127.0.0.1
+Dec 06, 2023 5:39:32 PM UACentServ start
+INFO: New server connection from IP address 127.0.0.1
+Dec 06, 2023 5:41:33 PM UACentServ <init>
+INFO: Server listening on port 35555
+Dec 06, 2023 5:41:33 PM UACentServ <init>
+INFO: Server listening on port 35000
+Dec 06, 2023 5:41:34 PM UACentServ start
+INFO: New server connection from IP address 127.0.0.1
+Dec 06, 2023 5:41:34 PM UACentServ start
+INFO: New server connection from IP address 127.0.0.1
+Dec 06, 2023 5:41:34 PM UACentServ start
+INFO: New server connection from IP address 127.0.0.1

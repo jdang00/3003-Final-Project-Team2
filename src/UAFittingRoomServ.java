@@ -17,8 +17,6 @@ public class UAFittingRoomServ {
 
     Socket cs;
 
-    private ObjectInputStream in;
-
     public UAFittingRoomServ() {
         try {
             cs = new Socket(host, port);
@@ -63,14 +61,12 @@ public class UAFittingRoomServ {
         try{
             InputStream inputStream = store.cs.getInputStream();
             ObjectInputStream ois = new ObjectInputStream(inputStream);
-            int id = (int) ois.readObject();
-            System.out.println(id);
+            Client c = (Client) ois.readObject();
+            System.out.println(c.getId() + " -> " + c.checkedOut);
 
         }catch(Exception ex){
             ex.printStackTrace();
         }
-
-
 
 
         Scanner sc = new Scanner(System.in);
@@ -84,8 +80,6 @@ public class UAFittingRoomServ {
 
         sc.close();
     }
-
-
 
     public void getRoom(int customerID) throws InterruptedException {
         roomController.acquire();
