@@ -84,6 +84,8 @@ public class UACentServ{
                     Socket fitServ = fs.accept();
                     FitRoomServersList.add(fitServ);
                     logger.info("New server connection from IP address " + fitServ.getInetAddress().getHostAddress());
+
+
                     new Thread(() -> fittingRoomServerHandler(fitServ)).start();
                 }
 
