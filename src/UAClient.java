@@ -10,6 +10,14 @@ public class UAClient {
     private Socket cs;
 
     //Creating the Client and obtaining the users input stream
+    
+    /* 
+     * <p>
+     * The UAClient() method pushes a host and a port to the cs socket
+     * </p>
+     * 
+     * @param cs a Socket
+     */
     public UAClient() {
         try {
             cs = new Socket(host, port);
@@ -18,6 +26,12 @@ public class UAClient {
             e.printStackTrace();
         }
     }
+    
+    /*
+     * <p>
+     * The close() method closes the connection to the socket
+     * </p>
+     */
     public void close() {
         try {
             cs.close();
@@ -27,6 +41,12 @@ public class UAClient {
         }
     }
 
+    /*
+     * <p>
+     * The main method of UAClient will wait for the user to exit the program as well as add the connecting clients to a ArrayList called clientList
+     * </p>
+     * @param clientList an ArrayList of UAClients to manage the incoming client traffic 
+     */
     public static void main(String[] args) {
 
         ArrayList<UAClient> clientList = new ArrayList<>();
