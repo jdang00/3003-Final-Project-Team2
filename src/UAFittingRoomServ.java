@@ -4,34 +4,18 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 public class UAFittingRoomServ {
 
     private static final String host = "localhost";
     private static final int port = 35555; //Our Port
-    private static final String logFile = "FittingRoomLog.txt";
-    private Logger logger;
 
-     public void setupLogger() {
-        try {
-            logger = Logger.getLogger(UAFittingRoomServ.class.getName());
-            FileHandler fh = new FileHandler(logFile, true);
-            fh.setFormatter(new SimpleFormatter());
-            logger.addHandler(fh);
-            logger.setLevel(Level.INFO);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    Socket cs;
 
     public UAFittingRoomServ(int serverId) {
         this.serverId = serverId;
         try {
-            setupLogger()
             cs = new Socket(host, port);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
         } catch (IOException e) {
@@ -103,12 +87,10 @@ public class UAFittingRoomServ {
     }
 
     public void getRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
-    	logger.info("Client "+cs.getInetAddress().getHostAddress() + "is obtaining a Fitting Room");
-        waiting--; 
+        waiting--;
         changing++;
         roomController.acquire();
         freeSeat();
-        
         System.out.println("\t\tCustomer #" + customerID + " enters the Fitting Room located at <Server "+store+": "+cs.getInetAddress().getHostAddress()+">");
         System.out.println("\t\tWe have "+ waiting + "waiting and "+changing+"changing");
     }
@@ -116,7 +98,6 @@ public class UAFittingRoomServ {
     public void freeRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
         roomController.release();
         changing--;
-    	logger.info("Client "+cs.getInetAddress().getHostAddress() + "left the fitting room");
         System.out.println("\t\t\tCustomer #" + customerID + " leaves the  Fitting Room.");
 
     }
@@ -124,12 +105,10 @@ public class UAFittingRoomServ {
     public void getSeat(int customerID,UAFittingRoomServ store) throws InterruptedException {
 
         if (seatController.tryAcquire()) {
-        	logger.info("Client "+cs.getInetAddress().getHostAddress() + "has entered and obtained a seat.");
             waiting++;
             System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+store+": "+cs.getInetAddress().getHostAddress()+">"+"and has a seat.");
             System.out.println("\tWe have " + waiting + "waiting on <Server "+store+": "+cs.getInetAddress().getHostAddress());
         } else {
-        	logger.info("Client "+cs.getInetAddress().getHostAddress() + "could not find a seat and left");
             System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
 
         }
@@ -153,7 +132,6 @@ public class UAFittingRoomServ {
 
         @Override
         public void run() {
-            logger.info("Client "+cs.getInetAddress().getHostAddress() + "Entered the system");
             System.out.println("Customer #" + customerID + " enters the system");
             try {
 
