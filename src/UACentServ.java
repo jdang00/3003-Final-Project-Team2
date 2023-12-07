@@ -70,12 +70,14 @@ public class UACentServ{
     }
 
 
+
     /*
      * Client handler method
      */
     public void clientHandler(Socket cs) {
 
-        new Thread(() -> fittingRoomServerHandler(FitRoomServersList.get(loadBalancer()), loadBalancer())).start();
+        int balance = loadBalancer();
+        new Thread(() -> fittingRoomServerHandler(FitRoomServersList.get(balance), balance)).start();
         logger.info("Client " + cs.getInetAddress().getHostAddress() + " is being balanced");
 
 
