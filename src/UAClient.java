@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UAClient {
@@ -27,7 +28,16 @@ public class UAClient {
     }
 
     public static void main(String[] args) {
-        UAClient client = new UAClient();
+
+        ArrayList<UAClient> clientList = new ArrayList<>();
+
+        for(int i = 0; i < 50; i++){
+            UAClient client = new UAClient();
+            clientList.add(client);
+        }
+
+
+
         Scanner sc = new Scanner(System.in);
 
         while(true){
@@ -37,7 +47,6 @@ public class UAClient {
             }
         }
 
-        client.close();
         sc.close();
     }
 }

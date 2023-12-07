@@ -49,23 +49,17 @@ public class UACentServ{
     //This is the client handler and is set up to handle inputs
     public void clientHandler(Socket cs) {
 
-        new Thread(() -> fittingRoomServerHandler(FitRoomServersList.get(loadBalancer()))).start();
+        new Thread(() -> fittingRoomServerHandler(FitRoomServersList.get(loadBalancer()), loadBalancer())).start();
 
 
     }
 
-    public void fittingRoomServerHandler(Socket cs){
 
-        Client c = new Client(clientCounter++);
+    public void fittingRoomServerHandler(Socket cs, int servNum){
 
         try{
-
-            OutputStream outputStream = cs.getOutputStream();
-            ObjectOutputStream output = new ObjectOutputStream(outputStream);
-
-            output.writeObject(c);
-            output.close();
-
+            PrintWriter pw = PrintStream.get(servNum);
+            pw.println("moving Customer #" + clientCounter++);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -73,22 +67,35 @@ public class UACentServ{
 
 
     ArrayList<Socket> FitRoomServersList = new ArrayList<>();
-    int roundRobinCounter = 0;
+    ArrayList<PrintWriter> PrintStream = new ArrayList<>();
+    int roundRobinCounter = 1;
 
     int clientCounter = 0;
 
     //This start method pushes the client connection and sends it to the client() method being passed a socket
     public void start() {
+
+        try {
+
+            for(int i = 0; i < numFitServ; i++){
+                System.out.println(i);
+                Socket fitServ = fs.accept();
+                FitRoomServersList.add(fitServ);
+                PrintWriter out = new PrintWriter(fitServ.getOutputStream(), true);
+                PrintStream.add(out);
+                logger.info("New fitting room server connection from IP address " + fitServ.getInetAddress().getHostAddress());
+
+            }
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+
         while (true) {
+
             try {
 
-                for(int i = 0; i < numFitServ; i++){
-                    Socket fitServ = fs.accept();
-                    FitRoomServersList.add(fitServ);
-                    logger.info("New fitting room server connection from IP address " + fitServ.getInetAddress().getHostAddress());
-                }
-
-                System.out.println("Test");
                 Socket clientServ = ss.accept();
                 logger.info("New client connection from IP address " + clientServ.getInetAddress().getHostAddress());
                 new Thread(() -> clientHandler(clientServ)).start();
@@ -101,7 +108,12 @@ public class UACentServ{
 
     public int loadBalancer(){
 
-        return 0;
+        if(roundRobinCounter == FitRoomServersList.size()){
+            roundRobinCounter = 1;
+            return 0;
+        }else {
+            return roundRobinCounter++;
+        }
 
     }
 
@@ -109,7 +121,7 @@ public class UACentServ{
 
     //Simply starts the server
     public static void main(String[] args) {
-        numFitServ = 1;
+        numFitServ = 3;
         UACentServ server = new UACentServ();
 
         server.start();
@@ -120,15 +132,4 @@ public class UACentServ{
 }
 
 
-class Client implements Serializable {
-    private int id;
-    boolean checkedOut = false;
 
-    public Client(int id){
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-}

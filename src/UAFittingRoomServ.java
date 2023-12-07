@@ -1,14 +1,10 @@
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 public class UAFittingRoomServ {
 
@@ -17,12 +13,11 @@ public class UAFittingRoomServ {
 
     Socket cs;
 
-    public UAFittingRoomServ() {
+    public UAFittingRoomServ(int serverId) {
+        this.serverId = serverId;
         try {
             cs = new Socket(host, port);
-
-            inputStream = cs.getInputStream();
-            ois = new ObjectInputStream(inputStream);
+            in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,27 +40,19 @@ public class UAFittingRoomServ {
     long systemTime;
     int waiting;
     int changing;
+    int serverId;
 
-    InputStream inputStream;
-    ObjectInputStream ois;
+    BufferedReader in;
 
     public void acceptClients(){
-
-        while(true){
-            try{
-                Client c = (Client) ois.readObject();
-
-                System.out.println(c.getId() + " -> " + c.checkedOut);
-
-
-            }catch(IOException ex){
-                ex.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+        try{
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println("Server #" + serverId + " now " + line);
             }
+        }catch(IOException ex){
+            ex.printStackTrace();
         }
-
-
 
     }
 
@@ -77,10 +64,15 @@ public class UAFittingRoomServ {
 //        store.numRooms = Integer.parseInt(args[1]);
 //        store.numCustomers = store.numSeats + store.numRooms;
 
+        ArrayList<UAFittingRoomServ> serverList = new ArrayList<>();
 
-        UAFittingRoomServ store = new UAFittingRoomServ();
-        store.acceptClients();
+        for(int i = 1 ; i <= 3; i++){
+            UAFittingRoomServ store = new UAFittingRoomServ(i);
+            serverList.add(store);
 
+            Thread serverThread = new Thread(store::acceptClients);
+            serverThread.start();
+        }
 
         Scanner sc = new Scanner(System.in);
 
