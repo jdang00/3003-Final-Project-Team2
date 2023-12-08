@@ -2452,3 +2452,83 @@ Dec 08, 2023 4:07:24 PM UACentralServer <init>
 INFO: Central Server listening on port 35555 for Fitting Room Servers
 Dec 08, 2023 4:07:24 PM UACentralServer <init>
 INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:09:44 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:09:44 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:09:48 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:09:48 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:09:48 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:12 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:11:12 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:11:34 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:35 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:35 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:36 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:36 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:37 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:38 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:39 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:39 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:40 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:40 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:41 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:41 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:42 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:11:42 PM UACentralServer$ClientConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:16:06 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:16:06 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:16:32 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:16:32 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:17:35 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:17:35 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:19:01 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:19:01 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:19:16 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:19:16 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:19:30 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:19:30 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:19:30 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:19:40 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 4:19:40 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 4:19:41 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:19:41 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 08, 2023 4:19:41 PM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1

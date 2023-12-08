@@ -101,6 +101,7 @@ public class UACentralServer {
     public synchronized void connectFittingRoom(){
 
         while(true){
+
             FittingRoomConnection connection = new FittingRoomConnection();
             fittingRoomServerConnectionsList.add(connection);
         }
@@ -118,7 +119,7 @@ public class UACentralServer {
 
     public class ClientConnection{
         int clientID;
-        int IPAddress;
+        String IPAddress;
         Socket socket;
         PrintWriter out;
         BufferedReader in;
@@ -131,8 +132,8 @@ public class UACentralServer {
                 clientID = clientCount.incrementAndGet();
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                IPAddress = Integer.parseInt(socket.getInetAddress().getHostAddress());
-                logger.info("New fitting room server connection from IP address " + IPAddress);
+                IPAddress = socket.getInetAddress().getHostAddress();
+                logger.info("New client connection from IP address " + IPAddress);
 
 
             }catch(IOException ex){
@@ -144,7 +145,7 @@ public class UACentralServer {
     public class FittingRoomConnection{
 
         int serverID;
-        int IPAddress;
+        String IPAddress;
         Socket socket;
         PrintWriter out;
         BufferedReader in;
@@ -157,7 +158,7 @@ public class UACentralServer {
                 isConnected = true;
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                IPAddress = Integer.parseInt(socket.getInetAddress().getHostAddress());
+                IPAddress = socket.getInetAddress().getHostAddress();
                 logger.info("New fitting room server connection from IP address " + IPAddress);
 
 
