@@ -9,19 +9,29 @@ import java.util.logging.SimpleFormatter;
 
 public class UACentralServer {
 
-    public static final int port = 35000;
+    public static final int ClientPort = 35000;
+    public static final int FittingPort = 35555;
+
 
     private ServerSocket ClientServerSocket;
     private ServerSocket FittingRoomServerSocket;
     ArrayList<FittingRoomConnection> fittingRoomServerConnectionsList = new ArrayList<>();
-    ArrayList<FittingRoomConnection> clientConnectionsList = new ArrayList<>();
+    ArrayList<ClientConnection> clientConnectionsList = new ArrayList<>();
 
     private Logger logger;
     private static final String logFile = "serverLog.txt";
 
 
-    AtomicInteger clientCount = new AtomicInteger();
-    public void setupLogger() {
+    AtomicInteger clientCount = new AtomicInteger(1);
+    AtomicInteger fittingRoomServerCount = new AtomicInteger();
+    AtomicInteger balancer = new AtomicInteger();
+
+    public static void main(String[] args) {
+        UACentralServer central = new UACentralServer();
+        central.start();
+    }
+
+    public synchronized void setupLogger() {
         try {
             logger = Logger.getLogger(UACentServ.class.getName());
             FileHandler fh = new FileHandler(logFile, true);
@@ -33,12 +43,63 @@ public class UACentralServer {
         }
     }
 
+    public UACentralServer(){
+        try{
+            setupLogger();
+            FittingRoomServerSocket = new ServerSocket(FittingPort);
+            logger.info("Central Server listening on port 35555 for Fitting Room Servers");
+
+            ClientServerSocket = new ServerSocket(ClientPort);
+            logger.info("Central Server listening on port 35000 for clients");
+
+        }catch (IOException ex){
+            logger.warning("Error accepting connections -> " + ex.getMessage());
+
+        }
+    }
+
+
     public synchronized void start() {
-        new Thread(this::connectFittingRoom);
-        new Thread(this::connectClient);
+        new Thread(this::connectFittingRoom).start();
+        new Thread(this::connectClient).start();
+    }
+
+    public synchronized void fittingRoomServerHandler(FittingRoomConnection connection){
+
+        connection.out.println(connection.serverID);
+
+        String line;
+
+        try{
+            while((line = connection.in.readLine()) != null){
+                System.out.println(line);
+            }
+        }catch(Exception ex){
+            logger.warning("Error occurred on fittingRoomServerHandler() from server " + connection.serverID + " located at " + connection.socket.getInetAddress().getHostAddress());
+
+        }
+
+    }
+
+    public synchronized void clientHandler(ClientConnection connection){
+
+        int calculateServerNumber = balancer();
+        new Thread(()-> fittingRoomServerHandler(fittingRoomServerConnectionsList.get(calculateServerNumber))).start();
+        logger.info("Customer " + connection.socket.getInetAddress().getHostAddress() + " is being assigned to FittingRoom Server " + calculateServerNumber);
+
+    }
+
+    public synchronized int balancer(){
+        if(balancer.get() == fittingRoomServerCount.get()){
+            balancer.set(1);
+            return 0;
+        }else{
+            return balancer.incrementAndGet();
+        }
     }
 
     public synchronized void connectFittingRoom(){
+
         while(true){
             FittingRoomConnection connection = new FittingRoomConnection();
             fittingRoomServerConnectionsList.add(connection);
@@ -47,13 +108,15 @@ public class UACentralServer {
 
     public synchronized void connectClient(){
         while(true){
-            FittingRoomConnection connection = new FittingRoomConnection();
+            ClientConnection connection = new ClientConnection();
             clientConnectionsList.add(connection);
+            new Thread(() -> clientHandler(connection)).start();
+
         }
     }
 
 
-    class ClientConnection{
+    public class ClientConnection{
         int clientID;
         int IPAddress;
         Socket socket;
@@ -78,7 +141,7 @@ public class UACentralServer {
         }
     }
 
-    class FittingRoomConnection{
+    public class FittingRoomConnection{
 
         int serverID;
         int IPAddress;
@@ -90,6 +153,7 @@ public class UACentralServer {
         public FittingRoomConnection(){
             try{
                 socket = FittingRoomServerSocket.accept();
+                serverID = fittingRoomServerCount.incrementAndGet();
                 isConnected = true;
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
