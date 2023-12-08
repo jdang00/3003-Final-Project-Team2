@@ -11,14 +11,12 @@ public class UAClient {
     private static final String host = "localhost";
     private static final int port = 35000; //Our Port
 
-    BufferedReader br;
 
 
     //Creating the Client and obtaining the users input stream
     public UAClient() {
         try {
             Socket cs = new Socket(host, port);
-            br = new BufferedReader(new InputStreamReader(cs.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
         }

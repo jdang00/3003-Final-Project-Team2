@@ -56,8 +56,6 @@ public class UAFittingRoomServ {
     int waiting;
     int changing;
     int serverId;
-
-
     BufferedReader in;
     PrintWriter pw;
 
@@ -94,10 +92,10 @@ public class UAFittingRoomServ {
 
         int numServers = 3;
 
-
         for(int i = 1 ; i <= numServers; i++){
 
             UAFittingRoomServ store = new UAFittingRoomServ(i);
+
 
             // Checks to see if server needs an extra room / seat based off of the remainders
             int roomsPerServer = (Integer.parseInt(args[1]) - 1) % 3 == i - 1 ? (Integer.parseInt(args[1]) - 1) / 3 + 1 : (Integer.parseInt(args[1]) - 1) / 3;
@@ -116,17 +114,6 @@ public class UAFittingRoomServ {
             serverThread.start();
         }
 
-
-        Scanner sc = new Scanner(System.in);
-
-        while(true){
-            String userRequest = sc.nextLine();
-            if (userRequest.equalsIgnoreCase("exit")) {
-                break;
-            }
-        }
-
-        sc.close();
     }
     
     /*

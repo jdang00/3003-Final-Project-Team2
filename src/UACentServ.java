@@ -98,6 +98,7 @@ public class UACentServ{
                 System.out.println(line);
             }
 
+
         }catch (Exception ex){
             ex.printStackTrace();
             logger.warning("Error occured on fittingRoomServerHandler() from server "+ servNum + " located at " + cs.getInetAddress().getHostAddress());
