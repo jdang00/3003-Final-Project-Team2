@@ -1,6 +1,8 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -15,9 +17,9 @@ public class UACentralServer {
 
     private ServerSocket ClientServerSocket;
     private ServerSocket FittingRoomServerSocket;
-    ArrayList<FittingRoomConnection> fittingRoomServerConnectionsList = new ArrayList<>();
-    ArrayList<ClientConnection> clientConnectionsList = new ArrayList<>();
 
+    List<FittingRoomConnection> fittingRoomServerConnectionsList = Collections.synchronizedList(new ArrayList<>());
+    List<ClientConnection> clientConnectionsList = Collections.synchronizedList(new ArrayList<>());
     private Logger logger;
     private static final String logFile = "serverLog.txt";
 
@@ -125,6 +127,8 @@ public class UACentralServer {
         BufferedReader in;
         boolean isConnected;
 
+        boolean isProcessed;
+
         public ClientConnection(){
             try{
                 socket = ClientServerSocket.accept();
@@ -160,6 +164,8 @@ public class UACentralServer {
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 IPAddress = socket.getInetAddress().getHostAddress();
                 logger.info("New fitting room server connection from IP address " + IPAddress);
+
+                out.println("Metadata,"+serverID+","+IPAddress+","+isConnected);
 
 
             }catch(IOException ex){
