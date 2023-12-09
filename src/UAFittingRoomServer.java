@@ -40,10 +40,9 @@ public class UAFittingRoomServer {
                 if(line.contains("Metadata")){
                     String[] data = line.split(",");
                     serverID.set(Integer.parseInt(data[1]));
-                    System.out.println("Server " + serverID.get() + "assigned and connected to UACentralServer.");
+                    System.out.println("Server " + serverID.get() + " assigned and connected to UACentralServer.");
                 }else{
-                    System.out.println(line);
-
+                    new Thread(new Customer(Integer.parseInt(line), this)).start();
                 }
             }
         }catch(IOException ex){
@@ -86,7 +85,7 @@ public class UAFittingRoomServer {
      * @param waiting decreases the count in this instance as the client/customer is no longer waiting in a chair and has now obtained a fitting room
      * @param changing increases the count in this instance as the client/customer is now changing
      */
-    public void getRoom(int customerID,UAFittingRoomServ store) throws InterruptedException, UnknownHostException {
+    public void getRoom(int customerID,UAFittingRoomServer store) throws InterruptedException, UnknownHostException {
         waiting--;
         changing++;
         roomController.acquire();
@@ -106,7 +105,7 @@ public class UAFittingRoomServer {
      * @param changing decreases the count as the client/customer has exited the fitting room
      * @param roomController Fitting Room semaphore to be released
      */
-    public void freeRoom(int customerID,UAFittingRoomServ store) throws InterruptedException {
+    public void freeRoom(int customerID,UAFittingRoomServer store) throws InterruptedException {
         roomController.release();
         changing--;
         System.out.println("\t\t\tCustomer #" + customerID + " leaves the  Fitting Room.");
@@ -123,14 +122,14 @@ public class UAFittingRoomServer {
      * @param waiting increases as the customer has not entered a fitting room and is waiting to enter a fitting room
      * @param seatController waitingRoom chairs semaphore to be acquired
      */
-    public void getSeat(int customerID,UAFittingRoomServ store) throws InterruptedException, UnknownHostException {
+    public void getSeat(int customerID,UAFittingRoomServer store) throws InterruptedException, UnknownHostException {
 
         if (seatController.tryAcquire()) {
             waiting++;
             System.out.println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverID.get()+": "+ InetAddress.getLocalHost()+"> and has a seat.");
             out.get().println("\tCustomer #" + customerID + " enters the waiting area on <Server "+serverID.get()+": "+ InetAddress.getLocalHost()+"> and has a seat.");
 
-            System.out.println("\tWe have " + waiting + " waiting on <Server "+serverID.get()+": "+InetAddress.getLocalHost());
+            System.out.println("\tWe have " + waiting + " waiting on <Server "+serverID.get()+">: "+InetAddress.getLocalHost());
         } else {
             System.out.println("\tCustomer #" + customerID + " could not find a seat and leaves in frustration.");
 
@@ -154,9 +153,9 @@ public class UAFittingRoomServer {
      */
     class Customer extends Thread {
         int customerID;
-        UAFittingRoomServ store;
+        UAFittingRoomServer store;
 
-        public Customer(int customerID,UAFittingRoomServ store) {
+        public Customer(int customerID,UAFittingRoomServer store) {
             this.customerID = customerID;
             this.store = store;
         }

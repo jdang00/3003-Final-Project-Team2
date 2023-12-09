@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -28,9 +29,12 @@ public class UACentralServer {
     AtomicInteger fittingRoomServerCount = new AtomicInteger();
     AtomicInteger balancer = new AtomicInteger();
 
+    static volatile boolean acceptConnections = true;
     public static void main(String[] args) {
         UACentralServer central = new UACentralServer();
         central.start();
+
+
     }
 
     public synchronized void setupLogger() {
@@ -47,6 +51,7 @@ public class UACentralServer {
 
     public UACentralServer(){
         try{
+
             setupLogger();
             FittingRoomServerSocket = new ServerSocket(FittingPort);
             logger.info("Central Server listening on port 35555 for Fitting Room Servers");
@@ -54,21 +59,37 @@ public class UACentralServer {
             ClientServerSocket = new ServerSocket(ClientPort);
             logger.info("Central Server listening on port 35000 for clients");
 
+
         }catch (IOException ex){
             logger.warning("Error accepting connections -> " + ex.getMessage());
 
         }
     }
 
+    public void userInput(){
+        Scanner sc = new Scanner(System.in);
 
-    public synchronized void start() {
+        while (acceptConnections){
+            if(sc.nextLine().equalsIgnoreCase("EXIT")){
+
+                acceptConnections = false;
+                logger.info("Central server no longer listening to connections.");
+            }
+        }
+
+        }
+
+
+    public void start() {
         new Thread(this::connectFittingRoom).start();
         new Thread(this::connectClient).start();
+        new Thread(this::userInput).start();
+
     }
 
-    public synchronized void fittingRoomServerHandler(FittingRoomConnection connection){
+    public void fittingRoomServerHandler(FittingRoomConnection connection, int clientID){
 
-        connection.out.println(connection.serverID);
+        connection.out.println(clientID);
 
         String line;
 
@@ -83,39 +104,48 @@ public class UACentralServer {
 
     }
 
-    public synchronized void clientHandler(ClientConnection connection){
+    public void clientHandler(ClientConnection connection){
 
         int calculateServerNumber = balancer();
-        new Thread(()-> fittingRoomServerHandler(fittingRoomServerConnectionsList.get(calculateServerNumber))).start();
-        logger.info("Customer " + connection.socket.getInetAddress().getHostAddress() + " is being assigned to FittingRoom Server " + calculateServerNumber);
+        new Thread(()-> fittingRoomServerHandler(fittingRoomServerConnectionsList.get(calculateServerNumber), connection.clientID)).start();
+        logger.info("Customer " + connection.socket.getInetAddress().getHostAddress() + " is being assigned to FittingRoom Server " + calculateServerNumber + 1);
 
     }
 
     public synchronized int balancer(){
-        if(balancer.get() == fittingRoomServerCount.get()){
-            balancer.set(1);
-            return 0;
+        if(fittingRoomServerCount.get() != 1){
+            if(balancer.get() == fittingRoomServerCount.get()){
+                balancer.set(1);
+                return 0;
+            }else{
+                return balancer.getAndIncrement();
+            }
         }else{
-            return balancer.incrementAndGet();
+            return balancer.get();
+
         }
     }
 
-    public synchronized void connectFittingRoom(){
+    public void connectFittingRoom(){
 
-        while(true){
-
+        while(acceptConnections){
             FittingRoomConnection connection = new FittingRoomConnection();
             fittingRoomServerConnectionsList.add(connection);
         }
+
     }
 
-    public synchronized void connectClient(){
-        while(true){
+    public void connectClient(){
+        while(acceptConnections){
             ClientConnection connection = new ClientConnection();
             clientConnectionsList.add(connection);
-            new Thread(() -> clientHandler(connection)).start();
+
+            if(fittingRoomServerCount.get() != 0){
+                new Thread(() -> clientHandler(connection)).start();
+            }
 
         }
+
     }
 
 
