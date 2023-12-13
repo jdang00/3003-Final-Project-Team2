@@ -3544,3 +3544,29 @@ Dec 08, 2023 9:53:52 PM UACentralServer <init>
 INFO: Central Server listening on port 35555 for Fitting Room Servers
 Dec 08, 2023 9:53:52 PM UACentralServer <init>
 INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 9:58:26 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 9:58:26 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 9:58:50 PM UACentralServer userInput
+INFO: Central server no longer listening to connections.
+Dec 08, 2023 9:58:50 PM UACentralServer userInput
+INFO: Central server no longer listening to connections.
+Dec 08, 2023 9:59:09 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 9:59:10 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 9:59:14 PM UACentralServer userInput
+INFO: Central server no longer listening to connections.
+Dec 08, 2023 9:59:14 PM UACentralServer userInput
+INFO: Central server no longer listening to connections.
+Dec 08, 2023 9:59:26 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 9:59:26 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 08, 2023 9:59:36 PM UACentralServer userInput
+INFO: Central server no longer listening to connections.
+Dec 08, 2023 10:00:14 PM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 08, 2023 10:00:14 PM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients

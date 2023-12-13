@@ -81,7 +81,7 @@ public class UACentralServer {
 
 
     public void start() {
-        new Thread(this::connectFittingRoom).start();
+
         new Thread(this::connectClient).start();
         new Thread(this::userInput).start();
 
