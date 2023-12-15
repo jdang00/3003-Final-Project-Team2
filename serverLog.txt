@@ -3570,3 +3570,179 @@ Dec 08, 2023 10:00:14 PM UACentralServer <init>
 INFO: Central Server listening on port 35555 for Fitting Room Servers
 Dec 08, 2023 10:00:14 PM UACentralServer <init>
 INFO: Central Server listening on port 35000 for clients
+Dec 15, 2023 8:14:29 AM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 15, 2023 8:14:29 AM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 15, 2023 8:14:38 AM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 15, 2023 8:15:11 AM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 15, 2023 8:15:28 AM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 15, 2023 8:15:28 AM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 15, 2023 8:15:33 AM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:47 AM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 15, 2023 8:27:47 AM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 15, 2023 8:27:50 AM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:54 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:54 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:54 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:54 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:54 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:54 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:55 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:55 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:55 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:55 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:55 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:55 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:55 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:55 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:55 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:56 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:56 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:56 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:57 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:57 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:57 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:58 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:58 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:58 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:58 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:58 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:58 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:59 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:59 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:59 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:27:59 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:27:59 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:27:59 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:28:00 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:00 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:00 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:28:00 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:00 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:00 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:28:01 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:01 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:01 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:28:01 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:01 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:01 AM UACentralServer fittingRoomServerHandler
+WARNING: Error occurred on fittingRoomServerHandler() from server 1 located at 127.0.0.1
+Dec 15, 2023 8:28:27 AM UACentralServer <init>
+INFO: Central Server listening on port 35555 for Fitting Room Servers
+Dec 15, 2023 8:28:27 AM UACentralServer <init>
+INFO: Central Server listening on port 35000 for clients
+Dec 15, 2023 8:28:32 AM UACentralServer$FittingRoomConnection <init>
+INFO: New fitting room server connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:45 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:45 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:45 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:45 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:46 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:46 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:46 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:46 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:46 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:46 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:47 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:47 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:47 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:47 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:48 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:48 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:48 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:48 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:48 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:48 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:49 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:49 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:50 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:50 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:50 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:50 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:51 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:51 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
+Dec 15, 2023 8:28:51 AM UACentralServer$ClientConnection <init>
+INFO: New client connection from IP address 127.0.0.1
+Dec 15, 2023 8:28:51 AM UACentralServer clientHandler
+INFO: Customer 127.0.0.1 is being assigned to FittingRoom Server 01
