@@ -10,6 +10,12 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The UAFittingRoomServer is a class that handles the clients and allows access to our critical section which is our fittingRoom
+ * @author Justin Dang
+ * @author Doyle McHaffie
+ * @author Morgan Ballard
+ */
 public class UAFittingRoomServer {
 
     private static final int port = 35555;
@@ -21,6 +27,9 @@ public class UAFittingRoomServer {
 
     AtomicInteger serverID = new AtomicInteger();
 
+    /**
+     * The constructor UAFittingRoomServer(String ipAddress) will take an IP and bind it to our central socket with our default port of 35555
+     */
     public UAFittingRoomServer(String ipAddress){
 
         try{
@@ -33,6 +42,10 @@ public class UAFittingRoomServer {
 
     }
 
+
+    /**
+     * the acceptClients() method listens for the UACentralServer to accept clients. If the line contains "Metadata" it will parse the value of the server id and assign the serverID 
+     */
     public void acceptClients(){
         try{
             String line;
@@ -50,6 +63,13 @@ public class UAFittingRoomServer {
         }
     }
 
+    /**
+     * The main() method of this program will alot the programs terminal arguments to variables 
+     * @param systemTime is the amount of time that the system will run 
+     * @param numSeats is a variable that is derived directly from args[1] 
+     * @param numRooms is a variable that is based off args[1] and is twice the size of the number of seats
+     * @param numCustomers is a variable that is derived from args[0] and args[1] that is the number of seats + the number of rooms 
+     */
     public static void main(String[] args) {
 
         UAFittingRoomServer store = new UAFittingRoomServer("localhost");
